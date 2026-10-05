@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>休比 — 个人网站</title>
+  <meta name="description" content="这是一个简洁的个人网站模板，展示作品、技能与联系方式。" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="#hero">休比</a>
+      <nav class="nav" id="nav" aria-label="主导航">
+        <a href="#about">关于</a>
+        <a href="#projects">作品</a>
+        <a href="#skills">技能</a>
+        <a href="#contact">联系</a>
+        <button id="theme-toggle" class="theme-btn" aria-label="切换深色模式">🌙</button>
+      </nav>
+      <button id="menu-toggle" class="menu-toggle" aria-label="打开菜单" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h1>你好，我是<span> 休比</span></h1>
+          <p class="lead">前端工程师 / 设计爱好者 / 开源贡献者 — 我构建简洁且可访问的网页体验。</p>
+          <p class="cta">
+            <a class="btn" href="#projects">查看作品</a>
+            <a class="btn ghost" href="#contact">联系我</a>
+          </p>
+        </div>
+        <div class="hero-avatar" aria-hidden="true">
+          <img src="avatar.jpg" alt="你的头像（替换 avatar.jpg）">
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section container">
+      <h2>关于我</h2>
+      <p>我是一个初学者，这是我用AI搭建的第1个网站，希望自己以后能做得更好</p>
+    </section>
+
+    <section id="projects" class="section container">
+      <h2>作品</h2>
+      <div class="grid projects-grid">
+        <article class="card">
+          <h3>项目名称 1</h3>
+          <p>简短描述。技术栈：React / Node / Vite。</p>
+          <p class="card-actions">
+            <a href="#" target="_blank" rel="noopener noreferrer">查看演示</a>
+            <a href="#" target="_blank" rel="noopener noreferrer">源代码</a>
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>项目名称 2</h3>
+          <p>简短描述。技术栈：静态站点 / HTML / CSS。</p>
+          <p class="card-actions">
+            <a href="#">查看演示</a>
+            <a href="#">源代码</a>
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>项目名称 3</h3>
+          <p>简短描述或作品截图链接。</p>
+          <p class="card-actions">
+            <a href="#">查看演示</a>
+            <a href="#">源代码</a>
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="section container">
+      <h2>技能</h2>
+      <div class="chips">
+        <span class="chip">HTML</span>
+        <span class="chip">CSS</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">React</span>
+        <span class="chip">TypeScript</span>
+        <span class="chip">Node.js</span>
+        <span class="chip">可访问性 (A11y)</span>
+      </div>
+    </section>
+
+    <section id="contact" class="section container">
+      <h2>联系我</h2>
+      <p>想合作或有问题？发封邮件或通过下面表单联系我。</p>
+
+      <!-- 使用 Formspree 或其他无后端表单服务：替换 action 为你的 Formspree 表单地址 -->
+      <form id="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+        <div class="form-row">
+          <label for="shuwi">姓名</label>
+          <input id="name" name="name" type="text" required />
+        </div>
+        <div class="form-row">
+          <label for="Yinquwen@hotmail.com">邮箱</label>
+          <input id="email" name="email" type="email" required />
+        </div>
+        <div class="form-row">
+          <label for="message">留言</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+        </div>
+        <div class="form-row">
+          <button class="btn" type="submit">发送</button>
+          <span id="form-status" role="status" aria-live="polite"></span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> 休比— <a href="#">隐私</a></p>
+    </div>
+  </footer>
+</body>
+</html>
