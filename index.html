@@ -9,12 +9,29 @@
         :root { --primary: #6366f1; --primary-dark: #4f46e5; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --muted: #64748b; --border: #e2e8f0; --sidebar-width: 220px; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; display: flex; flex-direction: column; min-height: 100vh; }
-        .sidebar { position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100vh; background: var(--card); border-right: 1px solid var(--border); z-index: 1000; display: flex; flex-direction: column; padding: 24px 16px; }
+        
+        /* --- 顶部汉堡菜单按钮 (手机端和平板端显示) --- */
+        .mobile-menu-btn { display: none; position: fixed; top: 15px; left: 15px; z-index: 2000; background: white; border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; font-size: 20px; color: var(--text); cursor: pointer; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .mobile-menu-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
+        
+        /* 侧边栏遮罩层 (手机端打开菜单时，点击空白处可关闭) */
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 900; opacity: 0; visibility: hidden; transition: all 0.3s; }
+
+        /* --- 侧边栏核心样式 --- */
+        .sidebar { position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100vh; background: var(--card); border-right: 1px solid var(--border); z-index: 1000; display: flex; flex-direction: column; padding: 24px 16px; align-items: center; transform: translateX(0); transition: transform 0.3s ease; }
+        
+        /* 新增：圆形头像样式 */
+        .avatar { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin-bottom: 16px; border: 3px solid var(--border); transition: all 0.3s; cursor: pointer; }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar:hover { border-color: var(--primary); transform: scale(1.05); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
+        
         .sidebar .logo { font-size: 20px; font-weight: 700; color: var(--primary-dark); text-decoration: none; margin-bottom: 32px; }
-        .sidebar .nav-links { display: flex; flex-direction: column; gap: 8px; list-style: none; flex: 1; }
-        .sidebar .nav-links a { text-decoration: none; color: var(--muted); font-size: 15px; font-weight: 500; padding: 10px 16px; border-radius: 8px; transition: all 0.2s; }
+        .sidebar .nav-links { display: flex; flex-direction: column; gap: 8px; list-style: none; flex: 1; width: 100%; }
+        .sidebar .nav-links a { text-decoration: none; color: var(--muted); font-size: 15px; font-weight: 500; padding: 10px 16px; border-radius: 8px; transition: all 0.2s; display: block; text-align: center; }
         .sidebar .nav-links a:hover, .sidebar .nav-links a.active { color: var(--primary-dark); background: #eef2ff; }
-        .main { margin-left: var(--sidebar-width); flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        /* 页面主体区域 */
+        .main { margin-left: var(--sidebar-width); flex: 1; display: flex; flex-direction: column; min-height: 100vh; transition: margin-left 0.3s ease; }
         .hero { flex: 1; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); color: white; text-align: center; padding: 20px; }
         .hero-content { max-width: 600px; }
         .hero h1 { font-size: 36px; margin-bottom: 16px; }
@@ -24,16 +41,32 @@
         .btn-white { background: white; color: var(--primary-dark); }
         .btn-white:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
         .site-footer { text-align: center; padding: 20px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); background: var(--card); }
+        
+        /* --- 手机端/平板端响应式布局 --- */
         @media (max-width: 768px) {
-            .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; align-items: center; padding: 12px 16px; }
-            .sidebar .logo { margin-bottom: 0; margin-right: 16px; }
-            .sidebar .nav-links { flex-direction: row; flex: unset; }
+            .mobile-menu-btn { display: block; } /* 显示汉堡按钮 */
+            .sidebar { transform: translateX(-100%); box-shadow: 2px 0 10px rgba(0,0,0,0.1); }
+            .sidebar.open { transform: translateX(0); } /* 打开侧边栏的类 */
+            .sidebar-overlay.open { opacity: 1; visibility: visible; }
             .main { margin-left: 0; }
+            .sidebar { width: 100%; height: 100%; border-right: none; padding-top: 80px; }
+            .avatar { width: 100px; height: 100px; margin-bottom: 16px; }
+            .sidebar .logo { margin-bottom: 32px; }
+            .sidebar .nav-links { flex-direction: column; flex: unset; width: 100%; }
+            .sidebar .nav-links a { padding: 12px 16px; font-size: 16px; }
         }
     </style>
 </head>
 <body>
-    <nav class="sidebar">
+    <!-- 新增：侧边栏遮罩层 -->
+    <div class="sidebar-overlay" id="overlay"></div>
+    <!-- 新增：汉堡菜单按钮 -->
+    <button class="mobile-menu-btn" id="menuBtn"><i class="fas fa-bars"></i></button>
+    
+    <nav class="sidebar" id="sidebar">
+        <div class="avatar">
+            <img src="https://ui-avatars.com/api/?name=Awen&background=6366f1&color=fff&size=200" alt="Awen 头像">
+        </div>
         <a href="index.html" class="logo">Awen</a>
         <ul class="nav-links">
             <li><a href="index.html" class="active">主页</a></li>
@@ -42,6 +75,7 @@
             <li><a href="contact.html">联系方式</a></li>
         </ul>
     </nav>
+    
     <div class="main">
         <section class="hero">
             <div class="hero-content">
@@ -57,5 +91,33 @@
             网站由 GitHub 托管
         </footer>
     </div>
+
+    <!-- 新增：控制侧边栏开关的 JavaScript -->
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        // 点击汉堡按钮打开/关闭侧边栏
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('open');
+        });
+
+        // 点击遮罩层空白处关闭侧边栏
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            overlay.classList.remove('open');
+        });
+        
+        // 点击侧边栏里的链接后，自动关闭侧边栏
+        const navLinks = document.querySelectorAll('.sidebar .nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('open');
+                overlay.classList.remove('open');
+            });
+        });
+    </script>
 </body>
 </html>
