@@ -35,6 +35,17 @@
         .sidebar.is-active { transform: translateX(0); }
         .sidebar-overlay.is-active { opacity: 1; visibility: visible; }
 
+        /* ========== 新增：页面内容缓慢浮现 ========== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { 
+            opacity: 0; 
+            animation: fadeInUp 0.8s ease forwards; 
+        }
+        /* ========================================== */
+
         @media (max-width: 768px) {
             :root { --sidebar-width: 85vw; }
             .menu-toggle { top: 15px; left: 15px; padding: 10px 14px; font-size: 18px; }
@@ -62,7 +73,8 @@
     
     <div class="main">
         <div class="container">
-            <div class="card">
+            <!-- 增加 fade-in 类，让联系页内容浮现 -->
+            <div class="card fade-in">
                 <h1>联系我</h1>
                 <p>如果你有任何问题或建议，欢迎随时给我发邮件。</p>
                 <a href="mailto:Yinquwen@hotmail.com" class="email-btn">
