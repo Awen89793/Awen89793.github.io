@@ -3,76 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awen 的个人网站 - 主页</title>
+    <title>Awen - 主页</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --primary: #6366f1; --primary-dark: #4f46e5; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --muted: #64748b; --border: #e2e8f0; --sidebar-width: 50vw; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; display: flex; flex-direction: column; min-height: 100vh; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; min-height: 100vh; }
         
-        /* --- 动态悬浮菜单按钮 --- */
-        .menu-toggle { 
-            position: fixed; top: 20px; left: 20px; z-index: 2000; 
-            background: white; border: 1px solid var(--border); border-radius: 12px; 
-            padding: 12px 16px; font-size: 20px; color: var(--primary); 
-            cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
-            /* 核心动态效果：缩放、颜色、阴影的平滑过渡 */
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-        }
-        /* 鼠标悬浮/触摸时的动态：稍微放大并改变颜色 */
-        .menu-toggle:hover { 
-            background: var(--primary); color: white; 
-            transform: scale(1.1); /* 放大10% */
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4); 
-            border-color: var(--primary);
-        }
-        
-        /* --- 动态半透明遮罩层 --- */
-        .sidebar-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.5); z-index: 900; 
-            opacity: 0; visibility: hidden; transition: all 0.4s ease; 
-            backdrop-filter: blur(2px); /* 背景微模糊 */
-        }
+        .menu-toggle { position: fixed; top: 20px; left: 20px; z-index: 2000; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; font-size: 20px; color: var(--primary); cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .menu-toggle:hover { background: var(--primary); color: white; transform: scale(1.1); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4); border-color: var(--primary); }
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 900; opacity: 0; visibility: hidden; transition: all 0.4s ease; backdrop-filter: blur(2px); }
 
-        /* --- 带弹性动画的侧边栏 --- */
-        .sidebar { 
-            position: fixed; top: 0; left: 0; 
-            width: var(--sidebar-width); height: 100vh; 
-            background: var(--card); border-right: 1px solid var(--border); 
-            z-index: 1000; display: flex; flex-direction: column; padding: 40px 32px; align-items: center; 
-            transform: translateX(-100%); 
-            /* 侧栏滑出时的弹性物理动画 */
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); 
-            box-shadow: 2px 0 25px rgba(0,0,0,0.1); 
-        }
-        
-        /* 头像悬浮微动效 */
+        .sidebar { position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100vh; background: var(--card); border-right: 1px solid var(--border); z-index: 1000; display: flex; flex-direction: column; padding: 40px 32px; align-items: center; transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 2px 0 25px rgba(0,0,0,0.1); }
         .avatar { width: 140px; height: 140px; border-radius: 50%; overflow: hidden; margin-bottom: 24px; border: 4px solid var(--border); transition: all 0.3s ease; }
         .avatar img { width: 100%; height: 100%; object-fit: cover; }
         .avatar:hover { border-color: var(--primary); transform: scale(1.05) rotate(-3deg); box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3); }
         
         .sidebar .logo { font-size: 24px; font-weight: 700; color: var(--primary-dark); text-decoration: none; margin-bottom: 40px; }
         .sidebar .nav-links { display: flex; flex-direction: column; gap: 12px; list-style: none; width: 100%; }
-        /* 菜单项悬浮动效 */
         .sidebar .nav-links a { text-decoration: none; color: var(--muted); font-size: 18px; font-weight: 500; padding: 12px 20px; border-radius: 12px; transition: all 0.2s ease; display: block; text-align: center; transform: translateX(0); }
-        .sidebar .nav-links a:hover, .sidebar .nav-links a.active { 
-            color: var(--primary-dark); background: #eef2ff; 
-            transform: translateX(8px); /* 悬浮时向右微移 */
-        }
+        .sidebar .nav-links a:hover, .sidebar .nav-links a.active { color: var(--primary-dark); background: #eef2ff; transform: translateX(8px); }
         
         .main { flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
-        .hero { flex: 1; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); color: white; text-align: center; padding: 20px; }
-        .hero-content { max-width: 600px; }
-        .hero h1 { font-size: 36px; margin-bottom: 16px; }
-        .hero p { font-size: 18px; opacity: 0.9; margin-bottom: 32px; }
-        .btn-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-        .btn { display: inline-block; padding: 12px 24px; border-radius: 10px; font-weight: 600; text-decoration: none; transition: 0.3s ease; }
-        .btn-white { background: white; color: var(--primary-dark); }
-        .btn-white:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; flex: 1; }
+        .card { background: var(--card); padding: 40px; border-radius: 16px; border: 1px solid var(--border); text-align: center; }
+        .card h1 { margin-bottom: 20px; color: var(--primary-dark); }
+        .card p { font-size: 18px; color: var(--muted); margin-bottom: 30px; }
         .site-footer { text-align: center; padding: 20px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); background: var(--card); }
         
-        /* 激活状态 */
         .sidebar.is-active { transform: translateX(0); }
         .sidebar-overlay.is-active { opacity: 1; visibility: visible; }
 
@@ -90,7 +48,7 @@
     
     <nav class="sidebar" id="sidebar">
         <div class="avatar">
-            <img src="https://ui-avatars.com/api/?name=Awen&background=6366f1&color=fff&size=300" alt="Awen 头像">
+            <img src="avatar.png" alt="Awen 头像">
         </div>
         <a href="index.html" class="logo">Awen</a>
         <ul class="nav-links">
@@ -102,16 +60,12 @@
     </nav>
     
     <div class="main">
-        <section class="hero">
-            <div class="hero-content">
-                <h1>你好，我是 Awen</h1>
-                <p>一名正在探索数字世界的互联网初学者。</p>
-                <div class="btn-group">
-                    <a href="about.html" class="btn btn-white">了解更多</a>
-                    <a href="contact.html" class="btn btn-white" style="background:transparent; border:2px solid white; color:white;">联系我</a>
-                </div>
+        <div class="container">
+            <div class="card">
+                <h1>欢迎来到我的个人主页</h1>
+                <p>这里是 Awen 的专属空间，记录我的学习足迹与成长历程。</p>
             </div>
-        </section>
+        </div>
         <footer class="site-footer">网站由 GitHub 托管</footer>
     </div>
 
@@ -119,23 +73,10 @@
         const menuBtn = document.getElementById('menuBtn');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
-
-        menuBtn.addEventListener('click', () => {
-            sidebar.classList.add('is-active');
-            overlay.classList.add('is-active');
-        });
-
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('is-active');
-            overlay.classList.remove('is-active');
-        });
-
-        const navLinks = document.querySelectorAll('.sidebar .nav-links a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                sidebar.classList.remove('is-active');
-                overlay.classList.remove('is-active');
-            });
+        menuBtn.addEventListener('click', () => { sidebar.classList.add('is-active'); overlay.classList.add('is-active'); });
+        overlay.addEventListener('click', () => { sidebar.classList.remove('is-active'); overlay.classList.remove('is-active'); });
+        document.querySelectorAll('.sidebar .nav-links a').forEach(link => {
+            link.addEventListener('click', () => { sidebar.classList.remove('is-active'); overlay.classList.remove('is-active'); });
         });
     </script>
 </body>
