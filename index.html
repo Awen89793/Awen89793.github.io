@@ -3,178 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awen的主页 - 学习中</title>
-    <!-- 引入图标库 -->
+    <title>Awen的主页</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { 
-            --primary: #6366f1; /* 保持和你其他页面一致的紫色调 */
-            --primary-dark: #4f46e5; 
-            --bg: #0f172a; /* 深色背景 */
-            --card-bg: rgba(255, 255, 255, 0.08);
-            --text: #e2e8f0;
-            --muted: #94a3b8;
-            --border: rgba(255, 255, 255, 0.1);
-            --sidebar-width: 260px;
-        }
-
+        :root { --primary: #6366f1; --primary-dark: #4f46e5; --text: #e2e8f0; --muted: #94a3b8; --card-bg: rgba(255, 255, 255, 0.08); --border: rgba(255,255,255,0.1); --sidebar-width: 50vw; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        
         body { 
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background-color: var(--bg);
-            color: var(--text); 
-            display: flex;
-            min-height: 100vh;
-            overflow-x: hidden;
+            background: #0f172a; color: var(--text); display: flex; flex-direction: column; min-height: 100vh; 
         }
 
-        /* --- 侧边栏样式 (保持不变) --- */
-        .sidebar { 
-            position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100vh; 
-            background: rgba(15, 23, 42, 0.95); 
-            backdrop-filter: blur(10px);
-            border-right: 1px solid var(--border); 
-            z-index: 1000; 
-            display: flex; flex-direction: column; padding: 40px 20px; align-items: center; 
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
+        /* 动态粒子背景 Canvas */
+        #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
-        .avatar { width: 100px; height: 100px; border-radius: 50%; overflow: hidden; margin-bottom: 20px; border: 3px solid var(--primary); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5); }
+        .menu-toggle { position: fixed; top: 20px; left: 20px; z-index: 2000; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; font-size: 20px; color: var(--primary); cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s ease; }
+        .menu-toggle:hover { background: var(--primary); color: white; transform: scale(1.1); }
+        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 900; opacity: 0; visibility: hidden; transition: all 0.4s ease; backdrop-filter: blur(2px); }
+
+        .sidebar { position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100vh; background: rgba(15, 23, 42, 0.95); border-right: 1px solid var(--border); z-index: 1000; display: flex; flex-direction: column; padding: 40px 32px; align-items: center; transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 2px 0 25px rgba(0,0,0,0.1); backdrop-filter: blur(10px); }
+        .avatar { width: 140px; height: 140px; border-radius: 50%; overflow: hidden; margin-bottom: 24px; border: 4px solid var(--primary); box-shadow: 0 0 15px rgba(99, 102, 241, 0.5); }
         .avatar img { width: 100%; height: 100%; object-fit: cover; }
         
-        .sidebar .logo { font-size: 22px; font-weight: 700; color: white; text-decoration: none; margin-bottom: 40px; letter-spacing: 1px; }
+        .sidebar .logo { font-size: 24px; font-weight: 700; color: white; text-decoration: none; margin-bottom: 40px; letter-spacing: 1px;}
+        .sidebar .nav-links { display: flex; flex-direction: column; gap: 12px; list-style: none; width: 100%; }
+        .sidebar .nav-links a { text-decoration: none; color: var(--muted); font-size: 18px; font-weight: 500; padding: 12px 20px; border-radius: 12px; transition: all 0.3s ease; display: block; text-align: left; padding-left: 30px; }
+        .sidebar .nav-links a:hover, .sidebar .nav-links a.active { color: white; background: var(--primary); transform: translateX(8px); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
         
-        .sidebar .nav-links { display: flex; flex-direction: column; gap: 10px; list-style: none; width: 100%; }
-        .sidebar .nav-links a { 
-            text-decoration: none; color: var(--muted); font-size: 16px; font-weight: 500; 
-            padding: 12px 20px; border-radius: 10px; transition: all 0.3s ease; 
-            display: block; text-align: left; padding-left: 30px;
-        }
-        .sidebar .nav-links a:hover, .sidebar .nav-links a.active { 
-            color: white; background: var(--primary); transform: translateX(5px); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
-
-        /* --- 主内容区域 --- */
-        .main-content {
-            margin-left: var(--sidebar-width); /* 给侧边栏留位置 */
-            flex: 1;
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* 动态背景 Canvas */
-        #particles-canvas {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 60px 40px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        /* 头部文字区域 */
+        .main { flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+        .container { max-width: 900px; margin: 0 auto; padding: 100px 20px 40px; flex: 1; }
+        
         header { margin-bottom: 60px; }
-        
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            background: linear-gradient(90deg, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: fadeInDown 1s ease-out;
-        }
+        h1 { font-size: 3.5rem; margin-bottom: 15px; background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .typing-container { font-size: 1.2rem; color: var(--primary); font-family: 'Courier New', Courier, monospace; min-height: 1.5em; }
 
-        .typing-container {
-            font-size: 1.2rem;
-            color: var(--primary);
-            font-family: 'Courier New', Courier, monospace; /* 代码风格字体 */
-            min-height: 1.5em;
-        }
-
-        /* 卡片网格 */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.12);
-            border-color: var(--primary);
-        }
-
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .card { background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border); backdrop-filter: blur(5px); transition: all 0.3s ease; }
+        .card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.12); border-color: var(--primary); }
         .card h3 { color: white; margin-bottom: 10px; font-size: 1.2rem; display: flex; align-items: center; gap: 10px;}
         .card p { color: var(--muted); font-size: 0.95rem; line-height: 1.6; }
-        
-        /* 装饰性的小图标颜色 */
         .card i { color: var(--primary); }
 
-        /* 动画关键帧 */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .sidebar.is-active { transform: translateX(0); }
+        .sidebar-overlay.is-active { opacity: 1; visibility: visible; }
 
-        /* 移动端适配 */
         @media (max-width: 768px) {
-            :root { --sidebar-width: 0px; } /* 手机上隐藏侧边栏，改为汉堡菜单逻辑（此处简化处理，假设手机也显示或你需要加汉堡按钮） */
-            /* 为了简单起见，这里让侧边栏在手机上变成底部导航或者隐藏，这里暂且设为隐藏，内容全宽 */
-            .sidebar { display: none; } 
-            .main-content { margin-left: 0; }
+            :root { --sidebar-width: 85vw; }
             h1 { font-size: 2.5rem; }
-            
-            /* 如果你想在手机上也能打开侧边栏，需要加一个汉堡按钮，参考你之前的 about.html 代码 */
+            .menu-toggle { top: 15px; left: 15px; padding: 10px 14px; font-size: 18px; }
+            .avatar { width: 120px; height: 120px; }
         }
     </style>
 </head>
 <body>
-
-    <!-- 侧边栏 -->
-    <nav class="sidebar">
+    <canvas id="particles-canvas"></canvas>
+    <button class="menu-toggle" id="menuBtn"><i class="fas fa-bars"></i></button>
+    <div class="sidebar-overlay" id="overlay"></div>
+    
+    <nav class="sidebar" id="sidebar">
         <div class="avatar">
-            <!-- 记得替换成你的头像链接 -->
-            <img src="https://ui-avatars.com/api/?name=Awen&background=6366f1&color=fff&size=200" alt="Awen">
+            <img src="https://ui-avatars.com/api/?name=Awen&background=6366f1&color=fff&size=300" alt="Awen 头像">
         </div>
-        <a href="#" class="logo">Awen's World</a>
+        <a href="index.html" class="logo">Awen's World</a>
         <ul class="nav-links">
             <li><a href="index.html" class="active"><i class="fas fa-home"></i> 主页</a></li>
             <li><a href="about.html"><i class="fas fa-user"></i> 关于我</a></li>
-            <li><a href="works.html"><i class="fas fa-code"></i> 练习作品</a></li>
+            <li><a href="works.html"><i class="fas fa-tools"></i> 练习作品</a></li>
             <li><a href="contact.html"><i class="fas fa-envelope"></i> 联系我</a></li>
         </ul>
     </nav>
-
-    <!-- 主内容区 -->
-    <div class="main-content">
-        <!-- 粒子背景画布 -->
-        <canvas id="particles-canvas"></canvas>
-
+    
+    <div class="main">
         <div class="container">
             <header>
                 <h1>Hello, I'm Awen.</h1>
-                <!-- 打字机效果容器 -->
                 <div class="typing-container">
                     <span id="typing-text"></span><span style="animation: blink 1s infinite">|</span>
                 </div>
@@ -186,7 +88,7 @@
                     <p>目前正在死磕 HTML 和 CSS。虽然经常把布局写乱，但我还在努力中！目标是能独立写出好看的网页。</p>
                 </div>
                 <div class="card">
-                    <h3><i class="fas fa-tools"></i> 我的工具箱</h3>
+                    <h3><i class="fas fa-code"></i> 我的工具箱</h3>
                     <p>VS Code (永远的神)、GitHub Pages (免费托管真香)、还有百度和 Google (遇到问题先搜索)。</p>
                 </div>
                 <div class="card">
@@ -198,75 +100,61 @@
     </div>
 
     <script>
-        // --- 打字机效果脚本 ---
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        menuBtn.addEventListener('click', () => { sidebar.classList.add('is-active'); overlay.classList.add('is-active'); });
+        overlay.addEventListener('click', () => { sidebar.classList.remove('is-active'); overlay.classList.remove('is-active'); });
+        document.querySelectorAll('.sidebar .nav-links a').forEach(link => {
+            link.addEventListener('click', () => { sidebar.classList.remove('is-active'); overlay.classList.remove('is-active'); });
+        });
+
+        // 打字机效果
         const textToType = "一名正在努力入门的 Web 前端新手 / 抄作业大师 / 充满好奇心的探索者";
         const typingElement = document.getElementById('typing-text');
         let i = 0;
-
         function typeWriter() {
             if (i < textToType.length) {
                 typingElement.innerHTML += textToType.charAt(i);
                 i++;
-                setTimeout(typeWriter, 100); // 打字速度
+                setTimeout(typeWriter, 100);
             }
         }
         window.onload = typeWriter;
 
-        // --- 粒子背景脚本 (简化版) ---
+        // 粒子背景
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particlesArray;
-
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        let particles = [];
         class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.size > 0.2) this.size -= 0.01; // 慢慢消失
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-            draw() {
-                ctx.fillStyle = 'rgba(99, 102, 241, 0.5)'; // 紫色粒子
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
+            constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 2 + 1; this.vx = (Math.random() - 0.5) * 1; this.vy = (Math.random() - 0.5) * 1; }
+            update() { this.x += this.vx; this.y += this.vy; if (this.x < 0 || this.x > canvas.width) this.vx *= -1; if (this.y < 0 || this.y > canvas.height) this.vy *= -1; }
+            draw() { ctx.fillStyle = 'rgba(99, 102, 241, 0.4)'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
         }
-
-        function initParticles() {
-            particlesArray = [];
-            for (let i = 0; i < 50; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-
-        function animateParticles() {
+        function init() { for (let i = 0; i < 40; i++) particles.push(new Particle()); }
+        function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-                // 简单的连线
-                for (let j = i; j < particlesArray.length; j++) {
-                    const dx = particlesArray[i].x - particlesArray[j].x;
-                    const dy = particlesArray[i].y - particlesArray[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 100) {
+            particles.forEach(p => { p.update(); p.draw(); });
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 120) {
                         ctx.beginPath();
-                        ctx.strokeStyle = `rgba(99, 102, 241, ${1 - distance/100})`;
+                        ctx.strokeStyle = `rgba(99, 102, 241, ${1 - dist/120})`;
                         ctx.lineWidth = 0.5;
-                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
                         ctx.stroke();
                     }
                 }
-    
+            }
+            requestAnimationFrame(animate);
+        }
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles=[]; init(); });
+        init(); animate();
+    </script>
+</body>
+</html>
