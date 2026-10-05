@@ -3,81 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awen - 主页</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>我的个人主页</title>
     <style>
-        :root { --primary: #6366f1; --primary-dark: #4f46e5; --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --muted: #64748b; --border: #e2e8f0; --sidebar-width: 50vw; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); display: flex; flex-direction: column; min-height: 100vh; }
-        
-        .menu-toggle { position: fixed; top: 20px; left: 20px; z-index: 2000; background: white; border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; font-size: 20px; color: var(--primary); cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .menu-toggle:hover { background: var(--primary); color: white; transform: scale(1.1); box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4); border-color: var(--primary); }
-        .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 900; opacity: 0; visibility: hidden; transition: all 0.4s ease; backdrop-filter: blur(2px); }
+        :root {
+            --primary-color: #00ff88;
+            --bg-color: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
 
-        .sidebar { position: fixed; top: 0; left: 0; width: var(--sidebar-width); height: 100vh; background: var(--card); border-right: 1px solid var(--border); z-index: 1000; display: flex; flex-direction: column; padding: 40px 32px; align-items: center; transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 2px 0 25px rgba(0,0,0,0.1); }
-        .avatar { width: 140px; height: 140px; border-radius: 50%; overflow: hidden; margin-bottom: 24px; border: 4px solid var(--border); transition: all 0.3s ease; }
-        .avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .avatar:hover { border-color: var(--primary); transform: scale(1.05) rotate(-3deg); box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3); }
-        
-        .sidebar .logo { font-size: 24px; font-weight: 700; color: var(--primary-dark); text-decoration: none; margin-bottom: 40px; }
-        .sidebar .nav-links { display: flex; flex-direction: column; gap: 12px; list-style: none; width: 100%; }
-        .sidebar .nav-links a { text-decoration: none; color: var(--muted); font-size: 18px; font-weight: 500; padding: 12px 20px; border-radius: 12px; transition: all 0.2s ease; display: block; text-align: center; transform: translateX(0); }
-        .sidebar .nav-links a:hover, .sidebar .nav-links a.active { color: var(--primary-dark); background: #eef2ff; transform: translateX(8px); }
-        
-        .main { flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
-        .container { max-width: 800px; margin: 0 auto; padding: 40px 20px; flex: 1; }
-        .card { background: var(--card); padding: 40px; border-radius: 16px; border: 1px solid var(--border); text-align: center; }
-        .card h1 { margin-bottom: 20px; color: var(--primary-dark); }
-        .card p { font-size: 18px; color: var(--muted); margin-bottom: 30px; }
-        .site-footer { text-align: center; padding: 20px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); background: var(--card); }
-        
-        .sidebar.is-active { transform: translateX(0); }
-        .sidebar-overlay.is-active { opacity: 1; visibility: visible; }
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-color);
+            color: white;
+            overflow-x: hidden;
+            height: 100%;
+        }
 
+        /* 动态背景容器 */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 头部区域 */
+        header {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+            background: linear-gradient(90deg, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .typing-text {
+            font-size: 1.5rem;
+            color: #94a3b8;
+            margin-top: 1rem;
+            border-right: 2px solid var(--primary-color);
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 3s steps(30, end) forwards, blink .75s step-end infinite;
+        }
+
+        /* 卡片网格 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: -5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px -10px rgba(0, 255, 136, 0.3);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+
+        /* 动画定义 */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink {
+            50% { border-color: transparent }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 移动端适配 */
         @media (max-width: 768px) {
-            :root { --sidebar-width: 85vw; }
-            .menu-toggle { top: 15px; left: 15px; padding: 10px 14px; font-size: 18px; }
-            .avatar { width: 120px; height: 120px; }
-            .sidebar .nav-links a { font-size: 16px; }
+            h1 { font-size: 2.5rem; }
+            .typing-text { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
-    <button class="menu-toggle" id="menuBtn"><i class="fas fa-bars"></i></button>
-    <div class="sidebar-overlay" id="overlay"></div>
-    
-    <nav class="sidebar" id="sidebar">
-        <div class="avatar">
-            <img src="avatar.png" alt="Awen 头像">
-        </div>
-        <a href="index.html" class="logo">Awen</a>
-        <ul class="nav-links">
-            <li><a href="index.html" class="active">主页</a></li>
-            <li><a href="about.html">关于</a></li>
-            <li><a href="works.html">作品</a></li>
-            <li><a href="contact.html">联系方式</a></li>
-        </ul>
-    </nav>
-    
-    <div class="main">
-        <div class="container">
+
+    <!-- 动态粒子背景 -->
+    <canvas id="canvas-container"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>Hello, I'm Developer.</h1>
+            <div class="typing-text">全栈开发 / 服务器运维 / 开源爱好者</div>
+        </header>
+
+        <section class="grid">
             <div class="card">
-                <h1>欢迎来到我的个人主页</h1>
-                <p>这里是 Awen 的专属空间，记录我的学习足迹与成长历程。</p>
+                <h3>️ 技术栈</h3>
+                <p>熟悉 Linux 环境配置，DNS 解析优化，以及现代 Web 开发框架。</p>
             </div>
-        </div>
-        <footer class="site-footer">网站由 GitHub 托管</footer>
+            <div class="card">
+                <h3> 项目展示</h3>
+                <p>这里可以放置你搭建过的网站、工具或者开源项目的链接。</p>
+            </div>
+            <div class="card">
+                <h3> 联系我</h3>
+                <p>Email: your@email.com<br>GitHub: @yourname</p>
+            </div>
+        </section>
     </div>
 
     <script>
-        const menuBtn = document.getElementById('menuBtn');
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-        menuBtn.addEventListener('click', () => { sidebar.classList.add('is-active'); overlay.classList.add('is-active'); });
-        overlay.addEventListener('click', () => { sidebar.classList.remove('is-active'); overlay.classList.remove('is-active'); });
-        document.querySelectorAll('.sidebar .nav-links a').forEach(link => {
-            link.addEventListener('click', () => { sidebar.classList.remove('is-active'); overlay.classList.remove('is-active'); });
+        // 简单的粒子连线背景效果
+        const canvas = document.getElementById('canvas-container');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        const particleCount = 60;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(0, 255, 136, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                // 连线逻辑
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 120) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 255, 136, ${1 - distance / 120})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            particles = [];
+            init();
         });
+
+        init();
+        animate();
     </script>
 </body>
 </html>
