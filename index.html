@@ -61,7 +61,7 @@
         header { margin-bottom: 60px; }
         h1 { font-size: 3.5rem; margin-bottom: 15px; background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        /* ========== 修复：打字机与光标 ========== */
+        /* 打字机与光标样式 */
         .typing-container { 
             font-size: 1.2rem; 
             color: var(--primary); 
@@ -70,19 +70,16 @@
             display: flex; 
             align-items: center; 
         }
-        #typing-text { white-space: pre-wrap; }
-        
         .blinking-cursor {
             display: inline-block;
             width: 2px;
-            height: 1.2em; /* 跟随文字高度 */
-            background-color: var(--primary);
+            height: 1.2em;
+            background-color: #fff;
             margin-left: 2px;
             vertical-align: text-bottom;
             animation: blink 0.8s step-end infinite;
         }
         @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-        /* ========================================== */
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
         .card { background: var(--card-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border); backdrop-filter: blur(5px); transition: all 0.3s ease; }
@@ -127,7 +124,6 @@
     
     <div class="main">
         <div class="container">
-            <!-- 移除 header 的动画延迟，确保文字正常显示 -->
             <header>
                 <h1>Hello, I'm Awen.</h1>
                 <div class="typing-container">
@@ -154,38 +150,44 @@
     </div>
 
     <script>
-        // 侧边栏与遮罩层联动
+        // 侧边栏与遮罩层联动 (直接绑定，因为脚本在底部)
         const menuBtn = document.getElementById('menuBtn');
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('overlay');
 
-        menuBtn.addEventListener('click', () => { 
-            sidebar.classList.add('active'); 
-            overlay.classList.add('active'); 
-        });
-        overlay.addEventListener('click', () => { 
-            sidebar.classList.remove('active'); 
-            overlay.classList.remove('active'); 
-        });
-        document.querySelectorAll('.sidebar .nav-links a').forEach(link => {
-            link.addEventListener('click', () => { 
+        if (menuBtn && sidebar && overlay) {
+            menuBtn.addEventListener('click', () => { 
+                sidebar.classList.add('active'); 
+                overlay.classList.add('active'); 
+            });
+            overlay.addEventListener('click', () => { 
                 sidebar.classList.remove('active'); 
                 overlay.classList.remove('active'); 
             });
-        });
+            document.querySelectorAll('.sidebar .nav-links a').forEach(link => {
+                link.addEventListener('click', () => { 
+                    sidebar.classList.remove('active'); 
+                    overlay.classList.remove('active'); 
+                });
+            });
+        }
 
-        // 打字机效果 (逻辑完全保持不变)
+        // 打字机效果
         const textToType = "一名正在努力入门的 Web 前端新手 / 抄作业大师 / 充满好奇心的探索者";
         const typingElement = document.getElementById('typing-text');
-        let i = 0;
-        function typeWriter() {
-            if (i < textToType.length) {
-                typingElement.innerHTML += textToType.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
+        
+        if (typingElement) {
+            let i = 0;
+            function typeWriter() {
+                if (i < textToType.length) {
+                    typingElement.innerHTML += textToType.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
             }
+            // 直接运行，因为脚本在底部，DOM已经完全加载好了
+            typeWriter();
         }
-        window.onload = typeWriter;
 
         // 粒子背景
         const canvas = document.getElementById('particles-canvas');
@@ -199,4 +201,4 @@
         }
         function init() { for (let i = 0; i < 40; i++) particles.push(new Particle()); }
         function animate() {
-            ctx.clearRect
+      
