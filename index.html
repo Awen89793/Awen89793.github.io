@@ -48,6 +48,24 @@
         .sidebar.is-active { transform: translateX(0); }
         .sidebar-overlay.is-active { opacity: 1; visibility: visible; }
 
+        /* ========== 新增：缓慢浮现动画 ========== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+        /* ========================================== */
+
         @media (max-width: 768px) {
             :root { --sidebar-width: 85vw; }
             h1 { font-size: 2.5rem; }
@@ -76,7 +94,7 @@
     
     <div class="main">
         <div class="container">
-            <header>
+            <header class="fade-in" style="animation-delay: 0.2s;">
                 <h1>Hello, I'm Awen.</h1>
                 <div class="typing-container">
                     <span id="typing-text"></span><span style="animation: blink 1s infinite">|</span>
@@ -84,15 +102,15 @@
             </header>
 
             <section class="grid">
-                <div class="card">
+                <div class="card fade-in" style="animation-delay: 0.4s;">
                     <h3><i class="fas fa-seedling"></i> 学习进度</h3>
                     <p>目前正在死磕 HTML 和 CSS。虽然经常把布局写乱，但我还在努力中！目标是能独立写出好看的网页。</p>
                 </div>
-                <div class="card">
+                <div class="card fade-in" style="animation-delay: 0.6s;">
                     <h3><i class="fas fa-code"></i> 我的工具箱</h3>
                     <p>VS Code (永远的神)、GitHub Pages (免费托管真香)、还有百度和 Google (遇到问题先搜索)。</p>
                 </div>
-                <div class="card">
+                <div class="card fade-in" style="animation-delay: 0.8s;">
                     <h3><i class="fas fa-bug"></i> Bug 制造机</h3>
                     <p>虽然现在我的代码是用AI写的，但终有一天我会自己动手，我要学完所有编程语言</p>
                 </div>
@@ -154,8 +172,4 @@
             }
             requestAnimationFrame(animate);
         }
-        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles=[]; init(); });
-        init(); animate();
-    </script>
-</body>
-</html>
+        window.addEventListe
