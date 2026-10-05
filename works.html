@@ -36,6 +36,17 @@
         .sidebar.is-active { transform: translateX(0); }
         .sidebar-overlay.is-active { opacity: 1; visibility: visible; }
 
+        /* ========== 新增：页面内容缓慢浮现 ========== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { 
+            opacity: 0; 
+            animation: fadeInUp 0.8s ease forwards; 
+        }
+        /* ========================================== */
+
         @media (max-width: 768px) {
             :root { --sidebar-width: 85vw; }
             .menu-toggle { top: 15px; left: 15px; padding: 10px 14px; font-size: 18px; }
@@ -63,10 +74,11 @@
     
     <div class="main">
         <div class="container">
-            <div class="empty-state">
+            <!-- 增加 fade-in 类，让作品页内容浮现 -->
+            <div class="empty-state fade-in">
                 <i class="fas fa-folder-open"></i>
                 <h2>暂无作品</h2>
-                <p>这里正在建设中，敬请期待我的第一个项目！这个有点难搞啊，容我思考一番。</p>
+                <p>这里正在建设中，敬请期待我的第一个项目！</p>
             </div>
         </div>
     </div>
