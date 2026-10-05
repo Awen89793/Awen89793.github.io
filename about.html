@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>关于我 - Awen</title>
+    <title>联系方式 - Awen</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --primary: #6366f1; --primary-dark: #4f46e5; --text: #e2e8f0; --muted: #94a3b8; --border: rgba(255,255,255,0.1); --sidebar-width: 50vw; }
@@ -26,11 +26,10 @@
         .sidebar .nav-links a:hover, .sidebar .nav-links a.active { color: white; background: var(--primary); transform: translateX(8px); box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3); }
         
         .main { flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
-        .container { max-width: 800px; margin: 0 auto; padding: 100px 20px 40px; flex: 1; }
-        .card { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px); padding: 40px; border-radius: 16px; border: 1px solid var(--border); text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
-        .card h1 { margin-bottom: 20px; color: white; }
-        .card p { font-size: 18px; color: var(--muted); margin-bottom: 30px; }
-        .tag { display: inline-block; background: rgba(99, 102, 241, 0.2); color: #a5b4fc; padding: 6px 16px; border-radius: 20px; font-size: 14px; margin: 5px; border: 1px solid rgba(99, 102, 241, 0.4); }
+        .container { max-width: 800px; margin: 0 auto; padding: 100px 20px 40px; text-align: center; flex: 1; }
+        .card { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px); padding: 50px 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+        .email-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--primary); color: white; padding: 15px 30px; border-radius: 12px; text-decoration: none; font-weight: 600; margin-top: 20px; transition: 0.3s; }
+        .email-btn:hover { background: var(--primary-dark); transform: translateY(-3px); }
         
         .sidebar.is-active { transform: translateX(0); }
         .sidebar-overlay.is-active { opacity: 1; visibility: visible; }
@@ -54,22 +53,20 @@
         <a href="index.html" class="logo">Awen's World</a>
         <ul class="nav-links">
             <li><a href="index.html"><i class="fas fa-home"></i> 主页</a></li>
-            <li><a href="about.html" class="active"><i class="fas fa-user"></i> 关于我</a></li>
+            <li><a href="about.html"><i class="fas fa-user"></i> 关于我</a></li>
             <li><a href="works.html"><i class="fas fa-tools"></i> 练习作品</a></li>
-            <li><a href="contact.html"><i class="fas fa-envelope"></i> 联系我</a></li>
+            <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> 联系我</a></li>
         </ul>
     </nav>
     
     <div class="main">
         <div class="container">
             <div class="card">
-                <h1>关于我</h1>
-                <p>我是一名互联网初学者，目前正充满热情地学习网页制作和互联网基础知识。</p>
-                <div>
-                    <span class="tag">HTML 学习</span>
-                    <span class="tag">网页制作</span>
-                    <span class="tag">持续进步</span>
-                </div>
+                <h1>联系我</h1>
+                <p>如果你有任何问题或建议，欢迎随时给我发邮件。</p>
+                <a href="mailto:Yinquwen@hotmail.com" class="email-btn">
+                    <i class="fas fa-envelope"></i> Yinquwen@hotmail.com
+                </a>
             </div>
         </div>
     </div>
