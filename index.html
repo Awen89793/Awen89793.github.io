@@ -14,6 +14,7 @@
             background: #0f172a; color: var(--text); display: flex; flex-direction: column; min-height: 100vh; 
         }
 
+        /* 动态粒子背景 Canvas */
         #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
         .menu-toggle { position: fixed; top: 20px; left: 20px; z-index: 2000; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; font-size: 20px; color: var(--primary); cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s ease; }
@@ -46,21 +47,6 @@
 
         .sidebar.is-active { transform: translateX(0); }
         .sidebar-overlay.is-active { opacity: 1; visibility: visible; }
-
-        .github-footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 40px 20px;
-            text-align: center;
-            color: var(--muted);
-            margin-top: auto;
-        }
-        .github-footer .footer-icon { font-size: 24px; margin-bottom: 10px; color: white; }
-        .github-footer .footer-links a { 
-            color: var(--muted); text-decoration: none; margin: 0 10px; font-size: 0.85rem; 
-        }
-        .github-footer .footer-links a:hover { color: white; text-decoration: underline; }
-        .github-footer p { margin: 8px 0; font-size: 0.85rem; }
-        .github-footer .copyright { color: #64748b; font-size: 0.8rem; }
 
         @media (max-width: 768px) {
             :root { --sidebar-width: 85vw; }
@@ -112,17 +98,6 @@
                 </div>
             </section>
         </div>
-        
-        <footer class="github-footer">
-            <div class="footer-icon"><i class="fab fa-github"></i></div>
-            <div class="footer-links">
-                <a href="#">Docs</a>
-                <a href="#">Contact</a>
-                <a href="#">Manage cookies</a>
-            </div>
-            <p>Do not share my personal information</p>
-            <p class="copyright">&copy; 2026 GitHub, Inc.</p>
-        </footer>
     </div>
 
     <script>
@@ -135,6 +110,7 @@
             link.addEventListener('click', () => { sidebar.classList.remove('is-active'); overlay.classList.remove('is-active'); });
         });
 
+        // 打字机效果
         const textToType = "一名正在努力入门的 Web 前端新手 / 抄作业大师 / 充满好奇心的探索者";
         const typingElement = document.getElementById('typing-text');
         let i = 0;
@@ -147,6 +123,7 @@
         }
         window.onload = typeWriter;
 
+        // 粒子背景
         const canvas = document.getElementById('particles-canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -166,4 +143,19 @@
                     let dy = particles[i].y - particles[j].y;
                     let dist = Math.sqrt(dx*dx + dy*dy);
                     if (dist < 120) {
-                        ctx.b
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(99, 102, 241, ${1 - dist/120})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles=[]; init(); });
+        init(); animate();
+    </script>
+</body>
+</html>
