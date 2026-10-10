@@ -18,30 +18,78 @@ body {
   pointer-events: none;
 }
 
+/* 汉堡菜单按钮 */
+.menu-btn {
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(106, 61, 255, 0.9);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.menu-btn:hover {
+  background: #7b5cff;
+  transform: scale(1.05);
+}
+
+.menu-line {
+  display: block;
+  width: 22px;
+  height: 2.5px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-btn.active .menu-line:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.menu-btn.active .menu-line:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-btn.active .menu-line:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* 侧栏 */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   width: 50vw;
-  max-width: 520px;
-  min-width: 240px;
+  max-width: 480px;
+  min-width: 260px;
   height: 100vh;
-  background: rgba(18, 6, 40, 0.92);
-  backdrop-filter: blur(10px);
-  border-right: 1px solid rgba(123, 92, 255, 0.25);
-  z-index: 100;
+  background: rgba(18, 6, 40, 0.95);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(123, 92, 255, 0.3);
+  z-index: 150;
+  transform: translateX(-100%);
   transition: transform 0.35s ease;
 }
 
-.sidebar.collapsed {
-  transform: translateX(-100%);
+.sidebar.open {
+  transform: translateX(0);
 }
 
 .sidebar-inner {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 32px 24px;
+  padding: 80px 24px 32px;
 }
 
 .sidebar-header {
@@ -93,68 +141,41 @@ body {
   color: #9b88d6;
 }
 
-.sidebar-toggle {
+/* 遮罩层 */
+.overlay {
   position: fixed;
-  top: 18px;
-  left: 18px;
-  z-index: 110;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  background: #6a3dff;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: left 0.35s ease, transform 0.2s ease;
+  inset: 0;
+  z-index: 140;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
 }
 
-.sidebar-toggle:hover {
-  transform: scale(1.08);
+.overlay.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.sidebar-toggle .toggle-icon {
-  font-size: 16px;
-  transition: transform 0.35s ease;
-}
-
-.sidebar.collapsed + .sidebar-toggle {
-  left: 18px;
-}
-
-.sidebar:not(.collapsed) + .sidebar-toggle {
-  left: calc(50vw - 18px);
-  max-left: calc(520px - 18px);
-}
-
-.sidebar:not(.collapsed) + .sidebar-toggle .toggle-icon {
-  transform: rotate(180deg);
-}
-
+/* 主内容区 */
 .content {
-  margin-left: 50vw;
   padding: 40px 48px;
   position: relative;
   z-index: 1;
   min-height: 100vh;
-  transition: margin-left 0.35s ease;
 }
 
-.sidebar.collapsed ~ .content {
-  margin-left: 0;
-}
-
+/* 主页英雄区 */
 .hero {
   margin-bottom: 32px;
+  padding-top: 20px;
 }
 
 .hero-card {
   background: rgba(30, 12, 60, 0.85);
   border: 1px solid rgba(123, 92, 255, 0.3);
   border-radius: 16px;
-  padding: 32px;
+  padding: 36px 32px;
   text-align: center;
 }
 
@@ -216,6 +237,7 @@ body {
   transform: translateY(-2px);
 }
 
+/* 通用区块 */
 .section {
   margin-bottom: 36px;
 }
@@ -231,6 +253,7 @@ body {
   line-height: 1.8;
 }
 
+/* 卡片网格 */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -258,41 +281,7 @@ body {
 
 .card p {
   color: #c4b5f0;
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-.card-tag {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 4px 10px;
-  font-size: 12px;
-  border-radius: 20px;
-  background: rgba(106, 61, 255, 0.25);
-  color: #d8c8ff;
-}
-
-.tag-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.tag {
-  padding: 6px 14px;
-  border-radius: 20px;
-  background: rgba(106, 61, 255, 0.25);
-  color: #d8c8ff;
-  font-size: 14px;
-}
-
-.skill-list {
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap
 
 ---
-需要我继续把剩下的 CSS 和 JavaScript 代码补全吗？
+需要我继续把 CSS 剩余部分和 JavaScript 代码补全吗？
 [[inline_action_reply_1]]
