@@ -1,72 +1,46 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>作品</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品 - 我的个人网站</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="particles"></div>
 
-  <button class="menu-btn" id="menuBtn" aria-label="打开菜单">
-    <span class="menu-line"></span>
-    <span class="menu-line"></span>
-    <span class="menu-line"></span>
-  </button>
-
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-inner">
-      <div class="sidebar-header">
-        <img src="avatar.png" alt="头像" class="avatar">
-        <h2 class="site-name">我的个人网站</h2>
-      </div>
-      <nav>
-        <ul class="nav-menu">
-          <li><a href="index.html">主页</a></li>
-          <li><a href="about.html">关于</a></li>
-          <li><a href="works.html" class="active">作品</a></li>
-          <li><a href="contact.html">联系</a></li>
-        </ul>
-      </nav>
-      <div class="sidebar-footer">
-        <p>© 2026 个人主页</p>
-      </div>
+    <div class="hamburger">
+        <span></span><span></span><span></span>
     </div>
-  </aside>
+    <div class="overlay"></div>
 
-  <main class="content">
-    <section class="section">
-      <h1>我的作品</h1>
-      <p>这里展示我完成或正在制作的项目，后续可以继续补充更多作品。</p>
-    </section>
+    <div class="sidebar">
+        <nav>
+            <a href="index.html">主页</a>
+            <a href="about.html">关于我</a>
+            <a href="works.html">我的作品</a>
+            <a href="contact.html">联系方式</a>
+        </nav>
+    </div>
 
-    <section class="section">
-      <div class="card-grid">
+    <div class="container">
+        <h1>我的作品</h1>
+        
         <div class="card">
-          <h3>个人主页</h3>
-          <p>一个多页式个人网站，包含主页、关于页、作品页和联系页，带有暗紫色粒子背景和交互式侧栏。</p>
-          <span class="card-tag">网页</span>
+            <h2>项目一：个人博客系统</h2>
+            <p>使用静态页面构建的响应式博客，支持暗色模式和流畅的动画效果。</p>
         </div>
-        <div class="card">
-          <h3>学习笔记</h3>
-          <p>记录前端学习过程中的重点内容，包括 HTML 结构、CSS 样式和 JavaScript 交互。</p>
-          <span class="card-tag">笔记</span>
-        </div>
-        <div class="card">
-          <h3>创意设计</h3>
-          <p>尝试不同的页面布局和配色方案，练习网页视觉表现。</p>
-          <span class="card-tag">设计</span>
-        </div>
-        <div class="card">
-          <h3>待更新作品</h3>
-          <p>后续会在这里添加更多项目，比如小工具、页面练习或完整作品。</p>
-          <span class="card-tag">计划中</span>
-        </div>
-      </div>
-    </section>
-  </main>
 
-  <script src="script.js"></script>
+        <div class="card">
+            <h2>项目二：交互式仪表盘</h2>
+            <p>基于数据可视化的后台管理界面设计，采用紫色调UI风格。</p>
+        </div>
+
+        <div class="card">
+            <h2>项目三：移动端适配方案</h2>
+            <p>针对不同尺寸屏幕的弹性布局实践，确保在各种设备上都有良好的阅读体验。</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
