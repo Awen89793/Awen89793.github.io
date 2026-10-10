@@ -1,70 +1,66 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>联系</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系方式 - 我的个人网站</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="particles"></div>
 
-  <button class="menu-btn" id="menuBtn" aria-label="打开菜单">
-    <span class="menu-line"></span>
-    <span class="menu-line"></span>
-    <span class="menu-line"></span>
-  </button>
-
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-inner">
-      <div class="sidebar-header">
-        <img src="avatar.png" alt="头像" class="avatar">
-        <h2 class="site-name">我的个人网站</h2>
-      </div>
-      <nav>
-        <ul class="nav-menu">
-          <li><a href="index.html">主页</a></li>
-          <li><a href="about.html">关于</a></li>
-          <li><a href="works.html">作品</a></li>
-          <li><a href="contact.html" class="active">联系</a></li>
-        </ul>
-      </nav>
-      <div class="sidebar-footer">
-        <p>© 2026 个人主页</p>
-      </div>
+    <div class="hamburger">
+        <span></span><span></span><span></span>
     </div>
-  </aside>
+    <div class="overlay"></div>
 
-  <main class="content">
-    <section class="section">
-      <h1>联系我</h1>
-      <p>如果你有任何问题、合作想法或只是想打个招呼，都可以通过以下方式联系我。</p>
-    </section>
+    <div class="sidebar">
+        <nav>
+            <a href="index.html">主页</a>
+            <a href="about.html">关于我</a>
+            <a href="works.html">我的作品</a>
+            <a href="contact.html">联系方式</a>
+        </nav>
+    </div>
 
-    <section class="section">
-      <div class="contact-grid">
-        <div class="contact-card">
-          <h3>QQ</h3>
-          <p>3153721700</p>
-        </div>
-        <div class="contact-card">
-          <h3>微信</h3>
-          <p>Awen18127604795</p>
-        </div>
-        <div class="contact-card">
-          <h3>邮箱</h3>
-          <p>3153721700@qq.com</p>
-          <p>Yinquwen@hotmail.com</p>
-        </div>
-        <div class="contact-card">
-          <h3>B站</h3>
-          <p>休比-文A</p>
-          <p>UID：3546957062605470</p>
-        </div>
-      </div>
-    </section>
-  </main>
+    <div class="container">
+        <h1>联系我</h1>
+        <p>如果您有任何合作意向或问题，欢迎通过以下方式联系我：</p>
 
-  <script src="script.js"></script>
+        <div class="card">
+            <div class="contact-item">
+                <span class="contact-icon">🐧</span>
+                <div>
+                    <strong>QQ号</strong><br>
+                    3153721700
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <span class="contact-icon">💬</span>
+                <div>
+                    <strong>微信号</strong><br>
+                    Awen18127604795
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <span class="contact-icon">📧</span>
+                <div>
+                    <strong>电子邮箱</strong><br>
+                    Yinquwen@hotmail.com
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <span class="contact-icon">📮</span>
+                <div>
+                    <strong>QQ邮箱</strong><br>
+                    3153721700@qq.com
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
