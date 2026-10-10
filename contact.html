@@ -29,13 +29,23 @@
         .main { flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
         .container { max-width: 800px; margin: 0 auto; padding: 100px 20px 40px; text-align: center; flex: 1; }
         .card { background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(8px); padding: 50px 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
-        .email-btn { display: inline-flex; align-items: center; gap: 10px; background: var(--primary); color: white; padding: 15px 30px; border-radius: 12px; text-decoration: none; font-weight: 600; margin-top: 20px; transition: 0.3s; }
-        .email-btn:hover { background: var(--primary-dark); transform: translateY(-3px); }
+        
+        .contact-list { display: flex; flex-direction: column; gap: 16px; margin-top: 30px; }
+        .contact-item { display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.05); padding: 18px 24px; border-radius: 12px; border: 1px solid var(--border); transition: all 0.3s ease; text-decoration: none; color: var(--text); }
+        .contact-item:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+        .contact-item .icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; color: white; flex-shrink: 0; }
+        .contact-item .info { text-align: left; }
+        .contact-item .info .label { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+        .contact-item .info .value { font-size: 16px; font-weight: 600; }
+        
+        .icon-qq { background: #12B7F5; }
+        .icon-qqlmail { background: #FF6B00; }
+        .icon-wechat { background: #07C160; }
+        .icon-email { background: var(--primary); }
         
         .sidebar.is-active { transform: translateX(0); }
         .sidebar-overlay.is-active { opacity: 1; visibility: visible; }
 
-        /* ========== 新增：页面内容缓慢浮现 ========== */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -44,7 +54,6 @@
             opacity: 0; 
             animation: fadeInUp 0.8s ease forwards; 
         }
-        /* ========================================== */
 
         @media (max-width: 768px) {
             :root { --sidebar-width: 85vw; }
@@ -73,13 +82,43 @@
     
     <div class="main">
         <div class="container">
-            <!-- 增加 fade-in 类，让联系页内容浮现 -->
             <div class="card fade-in">
                 <h1>联系我</h1>
-                <p>如果你有任何问题或建议，欢迎随时给我发邮件。</p>
-                <a href="mailto:Yinquwen@hotmail.com" class="email-btn">
-                    <i class="fas fa-envelope"></i> Yinquwen@hotmail.com
-                </a>
+                <p>如果你有任何问题或建议，欢迎通过以下方式联系我。</p>
+                
+                <div class="contact-list">
+                    <a href="tencent://message/?uin=3153721700" class="contact-item">
+                        <div class="icon icon-qq"><i class="fab fa-qq"></i></div>
+                        <div class="info">
+                            <div class="label">QQ</div>
+                            <div class="value">3153721700</div>
+                        </div>
+                    </a>
+                    
+                    <a href="mailto:3153721700@qq.com" class="contact-item">
+                        <div class="icon icon-qqlmail"><i class="fas fa-envelope"></i></div>
+                        <div class="info">
+                            <div class="label">QQ邮箱</div>
+                            <div class="value">3153721700@qq.com</div>
+                        </div>
+                    </a>
+                    
+                    <div class="contact-item" onclick="copyWechat()">
+                        <div class="icon icon-wechat"><i class="fab fa-weixin"></i></div>
+                        <div class="info">
+                            <div class="label">微信</div>
+                            <div class="value" id="wechatId">Awen18127604795</div>
+                        </div>
+                    </div>
+                    
+                    <a href="mailto:Yinquwen@hotmail.com" class="contact-item">
+                        <div class="icon icon-email"><i class="fas fa-envelope"></i></div>
+                        <div class="info">
+                            <div class="label">邮箱</div>
+                            <div class="value">Yinquwen@hotmail.com</div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -93,6 +132,15 @@
         document.querySelectorAll('.sidebar .nav-links a').forEach(link => {
             link.addEventListener('click', () => { sidebar.classList.remove('is-active'); overlay.classList.remove('is-active'); });
         });
+
+        function copyWechat() {
+            const wechatId = document.getElementById('wechatId').textContent;
+            navigator.clipboard.writeText(wechatId).then(() => {
+                alert('微信号已复制：' + wechatId);
+            }).catch(() => {
+                prompt('请手动复制微信号：', wechatId);
+            });
+        }
 
         // 粒子背景
         const canvas = document.getElementById('particles-canvas');
@@ -110,23 +158,4 @@
             particles.forEach(p => { p.update(); p.draw(); });
             for (let i = 0; i < particles.length; i++) {
                 for (let j = i + 1; j < particles.length; j++) {
-                    let dx = particles[i].x - particles[j].x;
-                    let dy = particles[i].y - particles[j].y;
-                    let dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < 120) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(99, 102, 241, ${1 - dist/120})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; particles=[]; init(); });
-        init(); animate();
-    </script>
-</body>
-</html>
+                    let d
