@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  color: #eee;
+  background: #1a0a2e;
+  min-height: 100vh;
+}
+
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100vh;
+  background: rgba(20, 8, 45, 0.85);
+  backdrop-filter: blur(6px);
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #7b5cff;
+  margin-bottom: 10px;
+}
+
+.site-name {
+  font-size: 16px;
+  color: #d8c8ff;
+}
+
+.nav-menu {
+  list-style: none;
+  flex: 1;
+}
+
+.nav-menu li {
+  margin-bottom: 12px;
+}
+
+.nav-menu a {
+  display: block;
+  padding: 10px 12px;
+  color: #d0c4ff;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+  background: #6a3dff;
+  color: #fff;
+}
+
+.menu-toggle {
+  display: none;
+  background: #6a3dff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 12px;
+}
+
+.content {
+  margin-left: 220px;
+  padding: 40px;
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+.content h1 {
+  margin-bottom: 16px;
+  color: #e8d8ff;
+}
+
+.content p {
+  line-height: 1.8;
+  color: #cfc0ff;
+}
+
+.contact-list {
+  list-style: none;
+  margin-top: 16px;
+}
+
+.contact-list li {
+  margin-bottom: 10px;
+  color: #d8c8ff;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .menu-toggle {
+    display: block;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    z-index: 20;
+  }
+
+  .content {
+    margin-left: 0;
+    padding: 70px 20px 40px;
+  }
+}
