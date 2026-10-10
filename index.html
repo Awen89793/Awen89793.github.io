@@ -9,23 +9,60 @@
 <body>
   <div id="particles"></div>
 
-  <nav class="sidebar">
-    <div class="sidebar-header">
-      <img src="avatar.png" alt="头像" class="avatar">
-      <p class="site-name">我的个人网站</p>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+      <div class="sidebar-header">
+        <img src="avatar.png" alt="头像" class="avatar">
+        <h2 class="site-name">我的个人网站</h2>
+      </div>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html" class="active">主页</a></li>
+          <li><a href="about.html">关于</a></li>
+          <li><a href="works.html">作品</a></li>
+          <li><a href="contact.html">联系</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2026 个人主页</p>
+      </div>
     </div>
-    <ul class="nav-menu">
-      <li><a href="index.html" class="active">主页</a></li>
-      <li><a href="about.html">关于</a></li>
-      <li><a href="works.html">作品</a></li>
-      <li><a href="contact.html">联系</a></li>
-    </ul>
-    <button class="menu-toggle" aria-label="切换菜单">☰</button>
-  </nav>
+  </aside>
+
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="切换侧栏">
+    <span class="toggle-icon">◀</span>
+  </button>
 
   <main class="content">
-    <h1>欢迎来到我的个人主页</h1>
-    <p>这里会展示我的作品、经历和联系方式。</p>
+    <section class="hero">
+      <div class="hero-card">
+        <img src="avatar.png" alt="头像" class="hero-avatar">
+        <h1>你好，欢迎来到我的主页</h1>
+        <p>这里记录我的学习、创作和作品展示。你可以在侧栏切换到不同页面。</p>
+        <div class="hero-actions">
+          <a href="about.html" class="btn btn-primary">了解更多</a>
+          <a href="works.html" class="btn btn-outline">查看作品</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>最近更新</h2>
+      <div class="card-grid">
+        <div class="card">
+          <h3>个人网站上线</h3>
+          <p>使用 HTML、CSS 和 JavaScript 搭建了一个多页个人网站，并部署到 GitHub Pages。</p>
+        </div>
+        <div class="card">
+          <h3>学习笔记</h3>
+          <p>整理前端基础知识，包括网页结构、样式设计和简单交互效果。</p>
+        </div>
+        <div class="card">
+          <h3>作品展示</h3>
+          <p>后续会在这里发布项目、设计、代码练习和创意作品。</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script src="script.js"></script>
