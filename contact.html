@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>联系方式 - Awen</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/all.min.css">
     <style>
         :root { --primary: #6366f1; --primary-dark: #4f46e5; --text: #e2e8f0; --muted: #94a3b8; --border: rgba(255,255,255,0.1); --sidebar-width: 50vw; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -64,7 +64,7 @@
 </head>
 <body>
     <canvas id="particles-canvas"></canvas>
-    <button class="menu-toggle" id="menuBtn"><i class="fas fa-bars"></i></button>
+    <button class="menu-toggle" id="menuBtn"><i class="fa-solid fa-bars"></i></button>
     <div class="sidebar-overlay" id="overlay"></div>
     
     <nav class="sidebar" id="sidebar">
@@ -73,10 +73,10 @@
         </div>
         <a href="index.html" class="logo">Awen's World</a>
         <ul class="nav-links">
-            <li><a href="index.html"><i class="fas fa-home"></i> 主页</a></li>
-            <li><a href="about.html"><i class="fas fa-user"></i> 关于我</a></li>
-            <li><a href="works.html"><i class="fas fa-tools"></i> 练习作品</a></li>
-            <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> 联系我</a></li>
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> 主页</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-user"></i> 关于我</a></li>
+            <li><a href="works.html"><i class="fa-solid fa-wrench"></i> 练习作品</a></li>
+            <li><a href="contact.html" class="active"><i class="fa-solid fa-envelope"></i> 联系我</a></li>
         </ul>
     </nav>
     
@@ -88,7 +88,7 @@
                 
                 <div class="contact-list">
                     <a href="tencent://message/?uin=3153721700" class="contact-item">
-                        <div class="icon icon-qq"><i class="fab fa-qq"></i></div>
+                        <div class="icon icon-qq"><i class="fa-brands fa-qq"></i></div>
                         <div class="info">
                             <div class="label">QQ</div>
                             <div class="value">3153721700</div>
@@ -96,7 +96,7 @@
                     </a>
                     
                     <a href="mailto:3153721700@qq.com" class="contact-item">
-                        <div class="icon icon-qqlmail"><i class="fas fa-envelope"></i></div>
+                        <div class="icon icon-qqlmail"><i class="fa-solid fa-envelope"></i></div>
                         <div class="info">
                             <div class="label">QQ邮箱</div>
                             <div class="value">3153721700@qq.com</div>
@@ -104,7 +104,7 @@
                     </a>
                     
                     <div class="contact-item" onclick="copyWechat()">
-                        <div class="icon icon-wechat"><i class="fab fa-weixin"></i></div>
+                        <div class="icon icon-wechat"><i class="fa-brands fa-weixin"></i></div>
                         <div class="info">
                             <div class="label">微信</div>
                             <div class="value" id="wechatId">Awen18127604795</div>
@@ -112,7 +112,7 @@
                     </div>
                     
                     <a href="mailto:Yinquwen@hotmail.com" class="contact-item">
-                        <div class="icon icon-email"><i class="fas fa-envelope"></i></div>
+                        <div class="icon icon-email"><i class="fa-solid fa-envelope"></i></div>
                         <div class="info">
                             <div class="label">邮箱</div>
                             <div class="value">Yinquwen@hotmail.com</div>
@@ -157,5 +157,4 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => { p.update(); p.draw(); });
             for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    let d
+                for (let j = i + 1
