@@ -9,29 +9,58 @@
 <body>
   <div id="particles"></div>
 
-  <nav class="sidebar">
-    <div class="sidebar-header">
-      <img src="avatar.png" alt="头像" class="avatar">
-      <p class="site-name">我的个人网站</p>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+      <div class="sidebar-header">
+        <img src="avatar.png" alt="头像" class="avatar">
+        <h2 class="site-name">我的个人网站</h2>
+      </div>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html">主页</a></li>
+          <li><a href="about.html">关于</a></li>
+          <li><a href="works.html">作品</a></li>
+          <li><a href="contact.html" class="active">联系</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2026 个人主页</p>
+      </div>
     </div>
-    <ul class="nav-menu">
-      <li><a href="index.html">主页</a></li>
-      <li><a href="about.html">关于</a></li>
-      <li><a href="works.html">作品</a></li>
-      <li><a href="contact.html" class="active">联系</a></li>
-    </ul>
-    <button class="menu-toggle" aria-label="切换菜单">☰</button>
-  </nav>
+  </aside>
+
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="切换侧栏">
+    <span class="toggle-icon">◀</span>
+  </button>
 
   <main class="content">
-    <h1>联系我</h1>
-    <ul class="contact-list">
-      <li><strong>QQ：</strong>3153721700</li>
-      <li><strong>微信：</strong>Awen18127604795</li>
-      <li><strong>邮箱：</strong>3153721700@qq.com</li>
-      <li><strong>邮箱：</strong>Yinquwen@hotmail.com</li>
-      <li><strong>B站：</strong>休比-文A（UID：3546957062605470）</li>
-    </ul>
+    <section class="section">
+      <h1>联系我</h1>
+      <p>如果你有任何问题、合作想法或只是想打个招呼，都可以通过以下方式联系我。</p>
+    </section>
+
+    <section class="section">
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>QQ</h3>
+          <p>3153721700</p>
+        </div>
+        <div class="contact-card">
+          <h3>微信</h3>
+          <p>Awen18127604795</p>
+        </div>
+        <div class="contact-card">
+          <h3>邮箱</h3>
+          <p>3153721700@qq.com</p>
+          <p>Yinquwen@hotmail.com</p>
+        </div>
+        <div class="contact-card">
+          <h3>B站</h3>
+          <p>休比-文A</p>
+          <p>UID：3546957062605470</p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script src="script.js"></script>
