@@ -1,80 +1,40 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>关于</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于 - 我的个人网站</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="particles"></div>
 
-  <button class="menu-btn" id="menuBtn" aria-label="打开菜单">
-    <span class="menu-line"></span>
-    <span class="menu-line"></span>
-    <span class="menu-line"></span>
-  </button>
-
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-inner">
-      <div class="sidebar-header">
-        <img src="avatar.png" alt="头像" class="avatar">
-        <h2 class="site-name">我的个人网站</h2>
-      </div>
-      <nav>
-        <ul class="nav-menu">
-          <li><a href="index.html">主页</a></li>
-          <li><a href="about.html" class="active">关于</a></li>
-          <li><a href="works.html">作品</a></li>
-          <li><a href="contact.html">联系</a></li>
-        </ul>
-      </nav>
-      <div class="sidebar-footer">
-        <p>© 2026 个人主页</p>
-      </div>
+    <div class="hamburger">
+        <span></span><span></span><span></span>
     </div>
-  </aside>
+    <div class="overlay"></div>
 
-  <main class="content">
-    <section class="section">
-      <h1>关于我</h1>
-      <p>这是我的个人网站，主要用于展示作品、记录学习和分享一些有趣的内容。网站采用多页结构，包含主页、关于页、作品页和联系页。</p>
-    </section>
+    <div class="sidebar">
+        <nav>
+            <a href="index.html">主页</a>
+            <a href="about.html">关于我</a>
+            <a href="works.html">我的作品</a>
+            <a href="contact.html">联系方式</a>
+        </nav>
+    </div>
 
-    <section class="section">
-      <h2>兴趣方向</h2>
-      <div class="tag-list">
-        <span class="tag">网页制作</span>
-        <span class="tag">前端学习</span>
-        <span class="tag">创意设计</span>
-        <span class="tag">作品展示</span>
-        <span class="tag">内容记录</span>
-      </div>
-    </section>
+    <div class="container">
+        <h1>关于我</h1>
+        <div class="card">
+            <h2>个人简介</h2>
+            <p>你好！我是一名热爱互联网技术的开发者。我喜欢钻研前端技术，搭建属于自己的数字花园。</p>
+            <p>除了编程，我也喜欢摄影和阅读，相信技术能为生活带来更多美好。</p>
+        </div>
+        <div class="card">
+            <h2>我的经历</h2>
+            <p>拥有丰富的自学经验，从注册域名到配置服务器，每一步都亲力亲为。</p>
+        </div>
+    </div>
 
-    <section class="section">
-      <h2>技能标签</h2>
-      <div class="skill-list">
-        <div class="skill-item">
-          <span class="skill-name">HTML</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">CSS</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">JavaScript</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
-        </div>
-        <div class="skill-item">
-          <span class="skill-name">GitHub Pages</span>
-          <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
