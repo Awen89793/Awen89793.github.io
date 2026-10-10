@@ -1,9 +1,9 @@
 /* 全局变量与重置 */
 :root {
-    --bg-color: #0f0a15; /* 深暗紫背景 */
+    --bg-color: #0f0a15;
     --sidebar-bg: #1a1025;
     --text-color: #e0d0f0;
-    --accent-color: #9d4edd; /* 亮紫色强调色 */
+    --accent-color: #9d4edd;
     --card-bg: #241b35;
 }
 
@@ -19,7 +19,6 @@ body {
     color: var(--text-color);
     overflow-x: hidden;
     min-height: 100vh;
-    /* 动态背景效果 */
     background: linear-gradient(135deg, #0f0a15 0%, #180c26 100%);
     background-attachment: fixed;
 }
@@ -53,22 +52,16 @@ body {
     box-shadow: 0 0 10px rgba(157, 78, 221, 0.5);
 }
 
-/* 汉堡按钮激活状态动画 */
-.hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
-}
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -7px);
-}
+/* 汉堡按钮激活状态 */
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(8px, 8px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
 
-/* 侧边栏 */
+/* 侧边栏 - 纵向排列布局 */
 .sidebar {
     position: fixed;
     top: 0;
-    left: -50%; /* 初始隐藏在左侧 */
+    left: -50%;
     width: 50%;
     height: 100%;
     background-color: var(--sidebar-bg);
@@ -86,18 +79,44 @@ body {
     left: 0;
 }
 
+/* 侧边栏头像样式 */
+.sidebar-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--accent-color);
+    object-fit: cover;
+    margin-bottom: 30px;
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
+    transition: transform 0.5s;
+}
+
+.sidebar-avatar:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* 侧边栏导航链接 */
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
 .sidebar nav a {
     color: var(--text-color);
     text-decoration: none;
-    font-size: 2rem;
-    margin: 20px 0;
+    font-size: 1.8rem;
+    margin: 15px 0;
     transition: color 0.3s, transform 0.3s;
     font-weight: bold;
+    width: 100%;
+    text-align: center;
 }
 
 .sidebar nav a:hover {
     color: var(--accent-color);
-    transform: translateX(20px);
+    transform: translateX(10px);
     text-shadow: 0 0 15px var(--accent-color);
 }
 
@@ -121,7 +140,7 @@ body {
     visibility: visible;
 }
 
-/* 页面主要内容容器 */
+/* 页面主要内容 */
 .container {
     max-width: 1000px;
     margin: 0 auto;
@@ -129,13 +148,12 @@ body {
     animation: fadeIn 1s ease-out;
 }
 
-/* 动画定义 */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* 头像样式 */
+/* 主页头像 */
 .profile-section {
     text-align: center;
     margin-bottom: 40px;
@@ -155,7 +173,7 @@ body {
     transform: rotate(360deg);
 }
 
-/* 内容卡片样式 */
+/* 卡片样式 */
 .card {
     background-color: var(--card-bg);
     padding: 25px;
@@ -171,7 +189,7 @@ body {
     border-color: var(--accent-color);
 }
 
-/* 联系页特定样式 */
+/* 联系页样式 */
 .contact-item {
     display: flex;
     align-items: center;
