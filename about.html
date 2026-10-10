@@ -9,23 +9,68 @@
 <body>
   <div id="particles"></div>
 
-  <nav class="sidebar">
-    <div class="sidebar-header">
-      <img src="avatar.png" alt="头像" class="avatar">
-      <p class="site-name">我的个人网站</p>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-inner">
+      <div class="sidebar-header">
+        <img src="avatar.png" alt="头像" class="avatar">
+        <h2 class="site-name">我的个人网站</h2>
+      </div>
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html">主页</a></li>
+          <li><a href="about.html" class="active">关于</a></li>
+          <li><a href="works.html">作品</a></li>
+          <li><a href="contact.html">联系</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <p>© 2026 个人主页</p>
+      </div>
     </div>
-    <ul class="nav-menu">
-      <li><a href="index.html">主页</a></li>
-      <li><a href="about.html" class="active">关于</a></li>
-      <li><a href="works.html">作品</a></li>
-      <li><a href="contact.html">联系</a></li>
-    </ul>
-    <button class="menu-toggle" aria-label="切换菜单">☰</button>
-  </nav>
+  </aside>
+
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="切换侧栏">
+    <span class="toggle-icon">◀</span>
+  </button>
 
   <main class="content">
-    <h1>关于我</h1>
-    <p>这里可以写你的个人介绍、兴趣、技能或经历。</p>
+    <section class="section">
+      <h1>关于我</h1>
+      <p>这是我的个人网站，主要用于展示作品、记录学习和分享一些有趣的内容。网站采用多页结构，包含主页、关于页、作品页和联系页。</p>
+    </section>
+
+    <section class="section">
+      <h2>兴趣方向</h2>
+      <div class="tag-list">
+        <span class="tag">网页制作</span>
+        <span class="tag">前端学习</span>
+        <span class="tag">创意设计</span>
+        <span class="tag">作品展示</span>
+        <span class="tag">内容记录</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>技能标签</h2>
+      <div class="skill-list">
+        <div class="skill-item">
+          <span class="skill-name">HTML</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">CSS</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">JavaScript</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">GitHub Pages</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script src="script.js"></script>
