@@ -57,7 +57,7 @@ body {
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
 
-/* 侧边栏 - 纵向排列布局 */
+/* 侧边栏 - 核心修改：内容向上靠 */
 .sidebar {
     position: fixed;
     top: 0;
@@ -69,8 +69,9 @@ body {
     transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start; /* 关键：改为顶部对齐 */
+    align-items: center; /* 水平居中 */
+    padding-top: 120px; /* 关键：增加顶部间距，避开汉堡按钮位置 */
     box-shadow: 5px 0 30px rgba(0,0,0,0.5);
     border-right: 1px solid var(--accent-color);
 }
@@ -79,15 +80,15 @@ body {
     left: 0;
 }
 
-/* 侧边栏头像样式 */
+/* 侧边栏头像 */
 .sidebar-avatar {
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     border-radius: 50%;
-    border: 3px solid var(--accent-color);
+    border: 4px solid var(--accent-color);
     object-fit: cover;
-    margin-bottom: 40px;
-    box-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
+    margin-bottom: 40px; /* 头像与导航方框的间距 */
+    box-shadow: 0 0 25px rgba(157, 78, 221, 0.5);
     transition: transform 0.5s;
 }
 
@@ -95,39 +96,36 @@ body {
     transform: scale(1.1) rotate(5deg);
 }
 
-/* 侧边栏导航链接 - 已更新：加大字体并添加方框 */
+/* 侧边栏导航方框样式 */
 .sidebar nav {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding: 0 20px; /* 增加左右内边距，防止方框贴边 */
 }
 
 .sidebar nav a {
     color: var(--text-color);
     text-decoration: none;
-    font-size: 2.2rem; /* 字体加大 */
-    margin: 12px 0;
-    padding: 12px 30px; /* 增加内边距，让方框更饱满 */
-    transition: all 0.3s ease;
-    font-weight: bold;
-    width: 85%; /* 方框宽度 */
+    font-size: 2.4rem; /* 关键：字体进一步增大 */
+    margin: 15px 0;
+    width: 80%; /* 方框宽度占侧栏的80% */
     text-align: center;
     
-    /* 新增：方框样式 */
-    border: 2px solid var(--accent-color); 
-    border-radius: 12px; /* 圆角矩形 */
-    background-color: rgba(157, 78, 221, 0.05); /* 极淡的背景色 */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* 轻微阴影增加立体感 */
+    /* 方框实体化设计 */
+    background-color: rgba(255, 255, 255, 0.05); /* 极淡的背景，形成卡片感 */
+    border: 2px solid var(--accent-color); /* 明显的紫色边框 */
+    border-radius: 15px; /* 较大的圆角 */
+    padding: 20px 0; /* 增加上下高度，让方框看起来像按钮 */
+    
+    transition: all 0.3s ease;
 }
 
 .sidebar nav a:hover {
+    background-color: var(--accent-color); /* 悬停时变为紫色背景 */
     color: #fff;
-    background-color: var(--accent-color); /* 悬停时背景变紫 */
-    transform: translateY(-3px); /* 悬停时轻微上浮 */
-    box-shadow: 0 0 20px rgba(157, 78, 221, 0.6); /* 悬停时发光 */
-    border-color: #fff;
+    transform: scale(1.05); /* 悬停时整体放大 */
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.8);
 }
 
 /* 遮罩层 */
@@ -137,12 +135,12 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.7);
     z-index: 998;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease;
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(4px);
 }
 
 .overlay.active {
@@ -154,8 +152,8 @@ body {
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 80px 20px;
-    animation: fadeIn 1s ease-out;
+    padding: 100px 20px;
+    animation: fadeIn 0.8s ease-out;
 }
 
 @keyframes fadeIn {
@@ -170,12 +168,12 @@ body {
 }
 
 .avatar {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
-    border: 4px solid var(--accent-color);
+    border: 5px solid var(--accent-color);
     object-fit: cover;
-    box-shadow: 0 0 25px rgba(157, 78, 221, 0.6);
+    box-shadow: 0 0 30px rgba(157, 78, 221, 0.8);
     transition: transform 0.5s;
 }
 
@@ -204,23 +202,24 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     background: rgba(255,255,255,0.05);
-    padding: 15px;
-    border-radius: 10px;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(157, 78, 221, 0.3);
 }
 
 .contact-icon {
-    margin-right: 15px;
-    font-size: 1.5rem;
+    margin-right: 20px;
+    font-size: 1.8rem;
 }
 
 h1, h2 {
     color: var(--accent-color);
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 p {
-    line-height: 1.6;
+    line-height: 1.8;
     margin-bottom: 15px;
 }
