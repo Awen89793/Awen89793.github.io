@@ -86,7 +86,7 @@ body {
     border-radius: 50%;
     border: 3px solid var(--accent-color);
     object-fit: cover;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
     box-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
     transition: transform 0.5s;
 }
@@ -95,29 +95,39 @@ body {
     transform: scale(1.1) rotate(5deg);
 }
 
-/* 侧边栏导航链接 */
+/* 侧边栏导航链接 - 已更新：加大字体并添加方框 */
 .sidebar nav {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    padding: 0 20px; /* 增加左右内边距，防止方框贴边 */
 }
 
 .sidebar nav a {
     color: var(--text-color);
     text-decoration: none;
-    font-size: 1.8rem;
-    margin: 15px 0;
-    transition: color 0.3s, transform 0.3s;
+    font-size: 2.2rem; /* 字体加大 */
+    margin: 12px 0;
+    padding: 12px 30px; /* 增加内边距，让方框更饱满 */
+    transition: all 0.3s ease;
     font-weight: bold;
-    width: 100%;
+    width: 85%; /* 方框宽度 */
     text-align: center;
+    
+    /* 新增：方框样式 */
+    border: 2px solid var(--accent-color); 
+    border-radius: 12px; /* 圆角矩形 */
+    background-color: rgba(157, 78, 221, 0.05); /* 极淡的背景色 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* 轻微阴影增加立体感 */
 }
 
 .sidebar nav a:hover {
-    color: var(--accent-color);
-    transform: translateX(10px);
-    text-shadow: 0 0 15px var(--accent-color);
+    color: #fff;
+    background-color: var(--accent-color); /* 悬停时背景变紫 */
+    transform: translateY(-3px); /* 悬停时轻微上浮 */
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.6); /* 悬停时发光 */
+    border-color: #fff;
 }
 
 /* 遮罩层 */
