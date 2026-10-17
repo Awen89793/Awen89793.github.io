@@ -7,11 +7,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="bg-layer"></div>
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
   <button class="menu-toggle" aria-label="打开菜单">☰</button>
   <div class="sidebar-overlay"></div>
 
   <aside class="sidebar">
-    <a href="index.html" class="logo">Awen</a>
+    <div class="sidebar-header">
+      <img src="avatar.png" alt="Awen 头像" class="sidebar-avatar">
+      <a href="index.html" class="logo">Awen</a>
+    </div>
     <ul class="nav-links">
       <li><a href="index.html">主页</a></li>
       <li><a href="about.html">关于</a></li>
@@ -21,24 +31,28 @@
   </aside>
 
   <main>
-    <div class="hero">
+    <div class="hero reveal">
       <img src="avatar.png" alt="Awen 头像" class="avatar">
       <h1>联系我</h1>
-      <p>欢迎通过以下方式与我交流</p>
+      <p>欢迎通过以下方式找到我</p>
     </div>
 
-    <div class="section">
+    <div class="section reveal">
       <h2>联系方式</h2>
       <ul class="contact-list">
-        <li><strong>QQ：</strong>3153721700</li>
-        <li><strong>微信：</strong>Awen18127604795</li>
-        <li><strong>B站：</strong>UID 3546957062605470（休比-文A）</li>
-        <li><strong>邮箱：</strong>Yinquwen@hotmail.com</li>
+        <li><strong>邮箱：</strong>your-email@example.com</li>
+        <li><strong>GitHub：</strong><a href="https://github.com/your-username" target="_blank">your-username</a></li>
+        <li><strong>微信：</strong>your-wechat-id</li>
       </ul>
+    </div>
+
+    <div class="section reveal">
+      <h2>留言</h2>
+      <p>如果你有建议或想交流的内容，可以通过上面的方式联系我，我会尽快回复。</p>
     </div>
   </main>
 
-  <footer>
+  <footer class="reveal">
     <p>© 2026 Awen 的个人网站</p>
   </footer>
 
@@ -66,6 +80,26 @@
     });
 
     overlay.addEventListener('click', closeSidebar);
+
+    const revealElements = document.querySelectorAll('.reveal');
+
+    function checkReveal() {
+      const trigger = window.innerHeight * 0.92;
+
+      revealElements.forEach((el, index) => {
+        const top = el.getBoundingClientRect().top;
+
+        if (top < trigger) {
+          setTimeout(() => {
+            el.classList.add('visible');
+          }, index * 120);
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkReveal);
+    window.addEventListener('load', checkReveal);
+    checkReveal();
   </script>
 </body>
 </html>
