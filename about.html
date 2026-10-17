@@ -7,11 +7,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="bg-layer"></div>
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
   <button class="menu-toggle" aria-label="打开菜单">☰</button>
   <div class="sidebar-overlay"></div>
 
   <aside class="sidebar">
-    <a href="index.html" class="logo">Awen</a>
+    <div class="sidebar-header">
+      <img src="avatar.png" alt="Awen 头像" class="sidebar-avatar">
+      <a href="index.html" class="logo">Awen</a>
+    </div>
     <ul class="nav-links">
       <li><a href="index.html">主页</a></li>
       <li><a href="about.html" class="active">关于</a></li>
@@ -21,25 +31,25 @@
   </aside>
 
   <main>
-    <div class="hero">
+    <div class="hero reveal">
       <img src="avatar.png" alt="Awen 头像" class="avatar">
       <h1>关于我</h1>
       <p>我是 Awen，一名互联网新手</p>
     </div>
 
-    <div class="section">
+    <div class="section reveal">
       <h2>个人简介</h2>
       <p>你好，我是 Awen，目前刚开始接触互联网相关技术。这个网站是我学习网页搭建、HTML、CSS 和 GitHub Pages 的实践项目。</p>
       <p>虽然现在内容还比较简单，但我会持续更新，逐步完善主页、关于页、作品页和联系页。</p>
     </div>
 
-    <div class="section">
+    <div class="section reveal">
       <h2>学习方向</h2>
       <p>目前主要在学习网页基础、个人网站搭建、GitHub 使用和前端入门知识。未来也会尝试记录更多学习过程和项目经验。</p>
     </div>
   </main>
 
-  <footer>
+  <footer class="reveal">
     <p>© 2026 Awen 的个人网站</p>
   </footer>
 
@@ -67,6 +77,26 @@
     });
 
     overlay.addEventListener('click', closeSidebar);
+
+    const revealElements = document.querySelectorAll('.reveal');
+
+    function checkReveal() {
+      const trigger = window.innerHeight * 0.92;
+
+      revealElements.forEach((el, index) => {
+        const top = el.getBoundingClientRect().top;
+
+        if (top < trigger) {
+          setTimeout(() => {
+            el.classList.add('visible');
+          }, index * 120);
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkReveal);
+    window.addEventListener('load', checkReveal);
+    checkReveal();
   </script>
 </body>
 </html>
