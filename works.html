@@ -7,11 +7,21 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="bg-layer"></div>
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
   <button class="menu-toggle" aria-label="打开菜单">☰</button>
   <div class="sidebar-overlay"></div>
 
   <aside class="sidebar">
-    <a href="index.html" class="logo">Awen</a>
+    <div class="sidebar-header">
+      <img src="avatar.png" alt="Awen 头像" class="sidebar-avatar">
+      <a href="index.html" class="logo">Awen</a>
+    </div>
     <ul class="nav-links">
       <li><a href="index.html">主页</a></li>
       <li><a href="about.html">关于</a></li>
@@ -21,26 +31,26 @@
   </aside>
 
   <main>
-    <div class="hero">
+    <div class="hero reveal">
       <img src="avatar.png" alt="Awen 头像" class="avatar">
       <h1>作品展示</h1>
       <p>目前作品正在建设中</p>
     </div>
 
-    <div class="section">
+    <div class="section reveal">
       <h2>进行中</h2>
       <p>这里会展示我的项目、学习笔记和个人作品。现在网站刚刚开始搭建，后续会陆续补充更多内容。</p>
 
       <div class="works">
-        <div class="work-card">
+        <div class="work-card reveal">
           <h3>个人网站</h3>
           <p>使用 HTML、CSS 和 GitHub Pages 搭建的个人主页，当前版本仍在完善中。</p>
         </div>
-        <div class="work-card">
+        <div class="work-card reveal">
           <h3>学习笔记</h3>
           <p>后续会整理网页搭建、前端入门和互联网学习相关内容。</p>
         </div>
-        <div class="work-card">
+        <div class="work-card reveal">
           <h3>更多作品</h3>
           <p>未来会添加更多项目、练习作品和个人创作。</p>
         </div>
@@ -48,7 +58,7 @@
     </div>
   </main>
 
-  <footer>
+  <footer class="reveal">
     <p>© 2026 Awen 的个人网站</p>
   </footer>
 
@@ -76,6 +86,26 @@
     });
 
     overlay.addEventListener('click', closeSidebar);
+
+    const revealElements = document.querySelectorAll('.reveal');
+
+    function checkReveal() {
+      const trigger = window.innerHeight * 0.92;
+
+      revealElements.forEach((el, index) => {
+        const top = el.getBoundingClientRect().top;
+
+        if (top < trigger) {
+          setTimeout(() => {
+            el.classList.add('visible');
+          }, index * 120);
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkReveal);
+    window.addEventListener('load', checkReveal);
+    checkReveal();
   </script>
 </body>
 </html>
