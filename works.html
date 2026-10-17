@@ -7,17 +7,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html" class="logo">Awen</a>
-      <ul class="nav-links">
-        <li><a href="index.html">主页</a></li>
-        <li><a href="about.html">关于</a></li>
-        <li><a href="works.html" class="active">作品</a></li>
-        <li><a href="contact.html">联系</a></li>
-      </ul>
-    </nav>
-  </header>
+  <button class="menu-toggle" aria-label="打开菜单">☰</button>
+  <div class="sidebar-overlay"></div>
+
+  <aside class="sidebar">
+    <a href="index.html" class="logo">Awen</a>
+    <ul class="nav-links">
+      <li><a href="index.html">主页</a></li>
+      <li><a href="about.html">关于</a></li>
+      <li><a href="works.html" class="active">作品</a></li>
+      <li><a href="contact.html">联系</a></li>
+    </ul>
+  </aside>
 
   <main>
     <div class="hero">
@@ -50,5 +51,31 @@
   <footer>
     <p>© 2026 Awen 的个人网站</p>
   </footer>
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const sidebar = document.querySelector('.sidebar');
+    const overlay = document.querySelector('.sidebar-overlay');
+
+    function openSidebar() {
+      sidebar.classList.add('open');
+      overlay.classList.add('show');
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+    }
+
+    menuToggle.addEventListener('click', () => {
+      if (sidebar.classList.contains('open')) {
+        closeSidebar();
+      } else {
+        openSidebar();
+      }
+    });
+
+    overlay.addEventListener('click', closeSidebar);
+  </script>
 </body>
 </html>
