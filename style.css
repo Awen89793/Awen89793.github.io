@@ -127,8 +127,30 @@ body {
   transform: translateX(0);
 }
 
+.sidebar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.sidebar-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.18);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sidebar-avatar:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.28);
+}
+
 .sidebar .logo {
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 700;
   color: #2d3a7a;
   text-decoration: none;
