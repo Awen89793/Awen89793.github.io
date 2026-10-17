@@ -11,9 +11,59 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(120deg, #e0e7ff, #f0f4ff, #e6f0ff, #f5f3ff);
+  background: #eef2ff;
+  overflow-x: hidden;
+}
+
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background: linear-gradient(120deg, #e0e7ff, #f0f4ff, #e6f0ff, #f5f3ff, #e0e7ff);
   background-size: 400% 400%;
-  animation: bgMove 18s ease infinite;
+  animation: bgMove 22s ease infinite;
+}
+
+.bg-blobs {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.35;
+}
+
+.blob-1 {
+  width: 420px;
+  height: 420px;
+  background: #a5b4fc;
+  top: -120px;
+  left: -120px;
+  animation: blobFloat1 26s ease-in-out infinite;
+}
+
+.blob-2 {
+  width: 360px;
+  height: 360px;
+  background: #c7d2fe;
+  bottom: -100px;
+  right: -100px;
+  animation: blobFloat2 30s ease-in-out infinite;
+}
+
+.blob-3 {
+  width: 300px;
+  height: 300px;
+  background: #e9d5ff;
+  top: 40%;
+  left: 50%;
+  animation: blobFloat3 24s ease-in-out infinite;
 }
 
 @keyframes bgMove {
@@ -28,14 +78,41 @@ body {
   }
 }
 
+@keyframes blobFloat1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(60px, 40px) scale(1.08);
+  }
+}
+
+@keyframes blobFloat2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-50px, -30px) scale(1.06);
+  }
+}
+
+@keyframes blobFloat3 {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-40%, -55%) scale(1.1);
+  }
+}
+
 .sidebar {
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
   width: 240px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(12px);
   border-right: 1px solid rgba(0, 0, 0, 0.06);
   padding: 28px 20px;
   display: flex;
@@ -142,6 +219,12 @@ main {
   border: 4px solid #fff;
   box-shadow: 0 8px 24px rgba(99, 102, 241, 0.18);
   margin-bottom: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(99, 102, 241, 0.28);
 }
 
 .tag {
@@ -202,4 +285,15 @@ footer {
   padding: 32px 20px;
   color: #888;
   font-size: 14px;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
